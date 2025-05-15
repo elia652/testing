@@ -1,20 +1,21 @@
 // components/ItemForm.tsx
 import { useState } from 'react';
 
-interface Props {
-  onAddItem: (item: { name: string; description: string }) => void;
+interface ItemFormProps {
+  onAddItem: (item: { name: string; description: string; price: number }) => void;
 }
-
-export default function ItemForm({ onAddItem }: Props) {
+export default function ItemForm({ onAddItem }: ItemFormProps) {
   const [name, setName] = useState('');
+  const [price, setPrice] = useState("");
   const [description, setDescription] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !description) return;
-    onAddItem({ name, description });
+    if (!name || !description || !price) return;
+    onAddItem({ name, description,price: parseFloat(price) });
     setName('');
     setDescription('');
+    setPrice("");
   };
 
   return (
@@ -25,6 +26,13 @@ export default function ItemForm({ onAddItem }: Props) {
         className="w-full p-2 border rounded"
         value={name}
         onChange={(e) => setName(e.target.value)}
+      />
+       <input
+        type="number"
+        placeholder="Item price"
+        className="w-full p-2 border rounded"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
       />
       <textarea
         placeholder="Description"
@@ -38,3 +46,4 @@ export default function ItemForm({ onAddItem }: Props) {
     </form>
   );
 }
+
