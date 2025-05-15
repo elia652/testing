@@ -8,6 +8,7 @@ import ItemForm from '../../../components/ItemForm';
 interface Item {
   id: number;
   name: string;
+  price: number;
   description: string;
 }
 
@@ -67,3 +68,4 @@ const handleAddItem = async (item: Omit<Item, 'id'>) => {
     </div>
   );
 }
+
